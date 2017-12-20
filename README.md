@@ -12,12 +12,18 @@ After that, we also printed the graph's info:  print(nx.info(G))
 At the end, importing matplotlib and networkx, we print the graph.
 
 2.	STATISTICS & VISUALIZATIONS
-a)	At first, we create a dictionary of struct {conference id: [list of authors who participated in that conference]}, to have a clear visualization of each conference’s ID and the authors’ ID of who have participated in each conference. 
 
+a)	At first, we create a dictionary of struct {conference id: [list of authors who participated in that conference]}, to have a clear visualization of each conference’s ID and the authors’ ID of who have participated in each conference. 
 Choosing the conference in input searchconfID = input("Search confID: "), we then create a list of nodes, which are the authors in the input conference. 
 Defining H the graph and importing matplotlib.pyplot, we returned the subgraph induced by the set of authors who published at the input conference. 
-
 For what concern the centralities measures, we used the Python package networkx. It allowed us to calculate degree centrality, closeness centrality and betweenness centrality. 
 Besides, for the measures' plots, we imported matlotlib plotting library, and in particular,ticker's module contains classes to support completely configurable tick locating and formatting. We then used the FuncFormatter function, which sets the labels.
 
-b)
+b)	Taking the same dictionary we created for the previous point, of struct {conference id: [list of authors who participated in that conference]}, it is possible to choose an author id in input. We returned an induced subgraph of neighbors centered at node (node is the author id), within a given radius, using ego graph. Radius includes all neighbors of distance <= radius from the input node. 
+Then we plotted and visualized the graph. 
+
+given in input an author and an integer d, get the subgraph induced by the nodes that have hop distance 
+
+
+
+
