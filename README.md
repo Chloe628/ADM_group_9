@@ -2,13 +2,11 @@
 1.	DATA: The goal of the first exercise was to create a graph G, by applying the graph methodologies. After we brought up the full dblp json file, we decoded json data importing json and defining json.loads(data) as dataset. 
 
 Having the dataset, we created a dictionary, using 2 for loop: one for dic in range(len(dataset)), one for j in range(len(dataset[dic]['authors'])). 
-In this dictionary, we have as keys the authors ID, and for values a list of publications’ ID that each author wrote, as well as the conference’s ID in which the publication has been presented. The output has struct {authorID: [list of {confID:pubID}]}.
+In this dictionary, we have as keys the authors ID, and for values a list of publications ID that each author wrote, as well as the conference ID in which each publication has been presented. The output has struct {authorID: [list of {confID:pubID}]}.
 
-After that, we defined the Jaccard’s Similarity function. We needed this function to weigh each edge of the graph. In fact, the graph’s nodes are the authors, while the nodes are connected if they share, at least, one publication.
-For the jaccardSim we created 2 empty lists, in which we appended the keys. We calculated the length of the intersection between the two lists and as result we put  1 - (intersect / ((len(myList1) + len(myList2)) - intersect)).
-
+After that, we defined the Jaccard’s Similarity function. We needed this function to weigh each edge of the graph. In fact, the graph’s nodes are the authors, while the nodes are connected if they share, at least, one publication. For the jaccardSim we created 2 empty lists, in which we appended the keys. We calculated the length of the intersection between the two lists and as result we put  1 - (intersect / ((len(myList1) + len(myList2)) - intersect)).
    
-Importing networkx, we create the graph G. At first, using 3 for loops, and adding the nodes before weighing the edges. We have weighed each edge with the jaccardSim.
+Importing networkx, we create the graph G. we used 3 for loops: one for data in dataset, the second for author in authors and the last one for author2 in authors. We needed 2 author's id, in order to put the condition aId != a2Id in the if, to not create edges on the same node. We defined the nodes before the if and then we have weighed each edge with the jaccardSim.
 After that, we also printed the graph's info:  print(nx.info(G))
  
 At the end, importing matplotlib and networkx, we print the graph.
