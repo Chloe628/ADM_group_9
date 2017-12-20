@@ -19,11 +19,5 @@ Defining H the graph and importing matplotlib.pyplot, we returned the subgraph i
 For what concern the centralities measures, we used the Python package networkx. It allowed us to calculate degree centrality, closeness centrality and betweenness centrality. 
 Besides, for the measures' plots, we imported matlotlib plotting library, and in particular,ticker's module contains classes to support completely configurable tick locating and formatting. We then used the FuncFormatter function, which sets the labels.
 
-b)	Taking the same dictionary we created for the previous point, of struct {conference id: [list of authors who participated in that conference]}, it is possible to choose an author id in input. We returned an induced subgraph of neighbors centered at node (node is the author id), within a given radius, using ego graph. Radius includes all neighbors of distance <= radius from the input node. 
+b)	Choosing an author id and a integer, we returned an induced subgraph of neighbors centered at node (node is the author id), within a given radius (radius is the integer), using ego graph. Radius includes all neighbors of distance <= radius from the input node. So, actually radius is the hop distance we want.
 Then we plotted and visualized the graph. 
-
-given in input an author and an integer d, get the subgraph induced by the nodes that have hop distance 
-
-
-
-
