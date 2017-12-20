@@ -1,91 +1,17 @@
 # ADM_group_9
-1.	DATA
-The goal of the first exercise was to create a graph G, by applying the graph methodologies. After we brought up the full_dblp.json file, we decoded json data importing json and defining json.loads(data) as dataset. 
+1.	DATA: The goal of the first exercise was to create a graph G, by applying the graph methodologies. After we brought up the full dblp json file, we decoded json data importing json and defining json.loads(data) as dataset. 
 
-#reading json file
-f = open('full_dblp.json', 'r')
-data = f.read()
-f.close()
-
-#reading data from json file
-import json
-dataset = json.loads(data)
-type(dataset)
-
-Having the dataset, we created a dictionary, using 2 for loop:
-#creating the dictionary
-myDict={}
-for dic in range(len(dataset)):
-    myList=[]
-    confID=dataset[dic]['id_conference_int']
-    pubID=dataset[dic]['id_publication_int']
-    for j in range(len(dataset[dic]['authors'])):
-        authorID=(dataset[dic]['authors'][j]['author_id'])
-        myList=[{pubID:confID}]
-        if authorID not in myDict:
-            myDict[authorID]=myList            
-        else:
-            myDict[authorID].append({pubID:confID})
-
+Having the dataset, we created a dictionary, using 2 for loop: one for dic in range(len(dataset)), one for j in range(len(dataset[dic]['authors'])). 
 In this dictionary, we have as keys the authors ID, and for values a list of publications’ ID that each author wrote, as well as the conference’s ID in which the publication has been presented. The output has struct {authorID: [list of {confID:pubID}]}.
 
 After that, we defined the Jaccard’s Similarity function. We needed this function to weigh each edge of the graph. In fact, the graph’s nodes are the authors, while the nodes are connected if they share, at least, one publication.
-#defining Jaccard's Similarity
-def jaccardSim(data1,data2):
-    myList1=[]
-    for item in data1:
-        key = list(item.keys())[0]
-        myList1.append(key)
-   #--------------------------------     
-    myList2=[]
-    for item in data2:
-        key = list(item.keys())[0]
-        myList1.append(key)
-   #--------------------------------     
-    intersect=len(set(myList1).intersection(myList2))
-    result = 1 - (intersect / ((len(myList1) + len(myList2)) - intersect))
-    
-    return result
-    
-    
-Importing networkx, we create the graph. At first, using 3 for loops, and adding the nodes before weighing the edges: 
-#creating the graph
-import networkx as nx
-G=nx.Graph()
+For the jaccardSim we created 2 empty lists, in which we appended the keys. We calculated the length of the intersection between the two lists and as result we put  1 - (intersect / ((len(myList1) + len(myList2)) - intersect)).
 
-for data in dataset:
-    authors = data["authors"]  
-    for author in authors:
-        for author2 in authors:
-            aId= author["author_id"]
-            a2Id= author2["author_id"]
-            G.add_node(aId)
-            G.add_node(a2Id)
-            if (aId != a2Id) and not (G.has_edge(aId,a2Id)):
-                r_weight= jaccardSim(myDict[aId],myDict[a2Id])
-                G.add_edge(aId,a2Id, weight=r_weight)
+   
+Importing networkx, we create the graph G. At first, using 3 for loops, and adding the nodes before weighing the edges. We have weighed each edge with the jaccardSim.
+After that, we also printed the graph's info:  print(nx.info(G))
  
-and we also printed the graph's info:
-print(nx.info(G))
- 
-Importing matplotlib, we print the graph:
-#printing the graph
-import matplotlib.pyplot as plt
-import networkx as nx
-plt.clf()
-
-options = {
-    'node_color': 'red',
-    'node_size': 4,
-    'line_color': 'green',
-    'linewidths': 0,
-    'width': 0.5,
-}
-
-nx.draw(G, **options)
-plt.show()
-
-
+At the end, importing matplotlib and networkx, we print the graph.
 
 2.	STATISTICS & VISUALIZATIONS
 a)	At first, we create a dictionary of struct {conference_id: [list of authors who participated in that conference]}, to have a clear visualization of each conference’s ID and the authors’ ID of who have participated in each conference. 
