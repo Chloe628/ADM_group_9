@@ -11,13 +11,13 @@ python3 module.py
 It is possible to choose between:
 
 
-#### "reduced" or "full" database; 
+* #### "reduced" or "full" database; 
 
 
 Then you can also select which excercises with the following options:
 
 
-##### 2a, 2b, 3a, 3b 
+* ##### 2a, 2b, 3a, 3b 
 
 
 Each choise is related with the two exercises (part one and part two for both of them). for each one, according with the task of the exercise, you have different arguments explained in detail below.
