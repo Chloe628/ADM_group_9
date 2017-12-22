@@ -4,8 +4,76 @@ from matplotlib.ticker import FuncFormatter
 import networkx as nx
 import heapq
 import numpy as np
-import queue as Q
-import sys
+
+
+# Jaccard's Similarity:
+def jaccardSim(data1, data2):
+    myList1 = []
+    for item in data1:
+        key = list(item.keys())[0]
+        myList1.append(key)
+
+    myList2 = []
+    for item in data2:
+        key = list(item.keys())[0]
+        myList2.append(key)
+
+    intersect = len(set(myList1).intersection(myList2))
+    similarityScore = (intersect / ((len(myList1) + len(myList2)) - intersect))
+
+    return similarityScore
+
+
+#Shortest path function
+def Shortest_path(G, start, end):
+    if start == end:
+        result = 0
+    elif nx.has_path(G, start, end):
+        neighb = []
+        seen = set()
+        lis = G[start]
+        seen.add(start)
+        for i in lis:
+            heapq.heappush(neighb, (lis[i]['weight'], i))
+        while neighb:
+            min_neighb = heapq.heappop(neighb)
+            weight = min_neighb[0]
+            node = min_neighb[1]
+            seen.add(node)
+            if node == end:
+                return weight
+            node_neighb = G[node]
+            for j in node_neighb:
+                if j not in seen:
+                    is_in_neighb = False
+                    for i in neighb:
+                        if i[1] == j:
+                            min_dist = min(i[0], node_neighb[j]['weight'] + weight)
+                            is_in_neighb = True
+                            neighb.remove(i)
+                            heapq.heappush(neighb, (min_dist, j))
+                            break
+                    if is_in_neighb == False:
+                        heapq.heappush(neighb, (node_neighb[j]['weight'] + weight, j))
+    else:
+        result = float('inf')
+    return result
+
+
+def GN_funct(G, t):
+    dic = {}
+    for i in G.nodes():
+        lst = []
+        for j in t:
+            if i != j:
+                d = Shortest_path(G, i, j)
+                if d != "inf":
+                    lst.append((d, j))
+        min_dist = heapq.heappop(lst)
+        dic[i] = min_dist
+    return dic
+
+
 
 #Calling data:
 #reading json file
@@ -31,22 +99,7 @@ for dic in range(len(dataset)):
         else:
             myDict[authorID].append({pubID:confID})
             
-#Jaccard's Similarity:
-def jaccardSim(data1,data2):
-    myList1=[]
-    for item in data1:
-        key = list(item.keys())[0]
-        myList1.append(key)
-   #--------------------------------     
-    myList2=[]
-    for item in data2:
-        key = list(item.keys())[0]
-        myList2.append(key)
-   #--------------------------------     
-    intersect=len(set(myList1).intersection(myList2))
-    similarityScore = (intersect / ((len(myList1) + len(myList2)) - intersect))
-    
-    return similarityScore
+
         
 #Creating Graph:
 G=nx.Graph()
@@ -76,7 +129,7 @@ options = {
 nx.draw(G, **options)
 plt.show()
 '''
-#-------------------------------------------------------
+
 a = input("enter the number of the exercise you want to run:")
 
 if a == "2a":
@@ -167,43 +220,15 @@ elif a == "2b":
     plt.show()
    
 elif a == "3a":
-    def Shortest_path(G, start, end):
-        if start==end:
-            result=0
-        elif nx.has_path(G,start,end):
-            neighb = []
-            seen = set()
-            lis = G[start]
-            seen.add(start)
-            for i in lis:
-                heapq.heappush(neighb, (lis[i]['weight'], i))
-            while neighb:
-                min_neighb = heapq.heappop(neighb) 
-                weight = min_neighb[0]
-                node = min_neighb[1]
-                seen.add(node)
-                if node==end: 
-                    return weight            
-                node_neighb=G[node]
-                for j in node_neighb:
-                    if j not in seen:
-                        is_in_neighb=False
-                        for i in neighb:
-                            if i[1]==j:
-                                min_dist=min(i[0], node_neighb[j]['weight']+weight)
-                                is_in_neighb= True
-                                neighb.remove(i)
-                                heapq.heappush(neighb, (min_dist, j))
-                                break
-                        if is_in_neighb==False:
-                            heapq.heappush(neighb, (node_neighb[j]['weight']+weight, j))
-        else:
-            result = float('inf')
-        return result
-        
-    searchauthor = int(input("Search the authorID to calculate the shortest path with Aris: "))
-    print(Shortest_path(G,256176,searchauthor))
-        
+
+    author = int(input("Search the authorID to calculate the shortest path with Aris: "))
+    print(Shortest_path(G,256176, author))
+
+elif a == "3b":
+    t = [9503, 255902, 9070, 239007, 189237]
+    #t = list(input("insert a list of porco dio").split())
+    print(GN_funct(G, t))
+
 
 else:
     print("Invalid input")
