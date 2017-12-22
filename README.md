@@ -50,7 +50,7 @@ After putting as input the ID conference, you'll receive as first output the plo
 ### 2b)
 
 
-Given an author ID as input we'll give as a result the subgraph of the nodes which have at most distance equal to a certain level, that we'll call "d". In order to provide our result, at first, you have to choise the author ID and secondly the maximum hop distance (equal to "d") that you want to check.  We used the ego_graph function belonging to the networkx library to calculate this subgraph. 
+Given an author ID as input we'll give as a result the subgraph of the nodes which have at most distance equal to a certain level, that we'll call "d". In order to provide our result, at first, you have to choose the author ID and secondly the maximum hop distance (equal to "d") that you want to check.  We used the ego_graph function belonging to the networkx library to calculate this subgraph. 
 
 
 
