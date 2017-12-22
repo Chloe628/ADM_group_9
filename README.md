@@ -1,12 +1,6 @@
 # ADM_group_9
 This is the repository for Homework 4 of Algorithmic Methods for Data Mining - Group 9
 
-## Files: 
-
-module.py : it is the module to run the homework's exercise.
-
-report.pdf : it is the description of how we worked.
-
 
 ### From the root folder run:
 
@@ -14,6 +8,19 @@ report.pdf : it is the description of how we worked.
 python3 module.py
 ```
 
+It is possible to choose between:
+
+
+#### "reduced" or "full" database; 
+
+
+Then you can also select which excercises with the following options:
+
+
+##### 2a, 2b, 3a, 3b 
+
+
+Each choise is related with the two exercises (part one and part two for both of them). for each one, according with the task of the exercise, you have different arguments explained in detail below.
 
 
 
