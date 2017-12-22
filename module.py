@@ -67,19 +67,27 @@ def GN_funct(G, t):
         for j in t:
             if i != j:
                 d = Shortest_path(G, i, j)
-                if d != "inf":
+                if d != float('inf'):
                     lst.append((d, j))
-        min_dist = heapq.heappop(lst)
-        dic[i] = min_dist
+        try:
+            min_dist = heapq.heappop(lst)
+            dic[i] = min_dist
+        except:
+            dic[i] = "NaN"
+
     return dic
 
 
+datab = input("Choose the database:")
 
-#Calling data:
-#reading json file
-f = open('reduced_dblp.json', 'r')
-data = f.read()
-f.close()
+if datab == "reduced":
+    f = open('reduced_dblp.json', 'r')
+    data = f.read()
+    f.close()
+if datab == "full":
+    f = open('full_dblp.json', 'r')
+    data = f.read()
+    f.close()
 
 #reading data from json file
 dataset = json.loads(data)
@@ -225,10 +233,34 @@ elif a == "3a":
     print(Shortest_path(G,256176, author))
 
 elif a == "3b":
-    t = [9503, 255902, 9070, 239007, 189237]
-    #t = list(input("insert a list of porco dio").split())
+    #t = [9503, 255902, 9070, 239007, 189237]
+    t = list(map(int,input("insert a list of authors' ID").split()))
     print(GN_funct(G, t))
 
 
 else:
     print("Invalid input")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
