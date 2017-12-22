@@ -10,9 +10,9 @@ report.pdf : it is the description of how we worked.
 
 ### From the root folder run:
 
-'''
+```
 python3 module.py
-'''
+```
 
 
 
