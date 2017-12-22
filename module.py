@@ -232,27 +232,3 @@ elif a == "3b":
 
 else:
     print("Invalid input")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
